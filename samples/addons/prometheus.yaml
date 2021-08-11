@@ -471,6 +471,8 @@ spec:
               subPath: ""
       hostNetwork: false
       dnsPolicy: ClusterFirst
+      nodeSelector:
+        kubernetes.io/hostname: nj01
       securityContext:
         fsGroup: 65534
         runAsGroup: 65534
@@ -482,5 +484,9 @@ spec:
           configMap:
             name: prometheus
         - name: storage-volume
-          emptyDir:
-            {}
+          # emptyDir:
+          #   {}
+          hostPath:
+            path: /k3sdata/istio/prom
+            type: DirectoryOrCreate
+  

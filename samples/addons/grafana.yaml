@@ -125,7 +125,8 @@ spec:
         checksum/dashboards-json-config: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
         checksum/sc-dashboard-provider-config: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
     spec:
-      
+      nodeSelector:
+        kubernetes.io/hostname: nj01
       serviceAccountName: grafana
       securityContext:
         fsGroup: 472
@@ -203,7 +204,10 @@ spec:
           configMap:
             name: istio-services-grafana-dashboards
         - name: storage
-          emptyDir: {}
+          # emptyDir: {}
+          hostPath:
+            path: /k3sdata/istio/grafana
+            type: DirectoryOrCreate
 
 ---
 
